@@ -1,6 +1,6 @@
 FORMAT: 1A
 
-# COMPANY-SERVICE
+# Company
 
 # Company [/companies]
 Company  resource representation.
@@ -31,9 +31,21 @@ Company  resource representation.
                 "status": "success",
                 "data": {
                     "data": {
-                        "_id": "string",
-                        "name": "string",
-                        "code": "string"
+                        "_id": {
+                            "value": "1234567890",
+                            "type": "string",
+                            "max": "255"
+                        },
+                        "name": {
+                            "value": "PT THUNDERLABS INDONESIA",
+                            "type": "string",
+                            "max": "255"
+                        },
+                        "code": {
+                            "value": "TLID",
+                            "type": "string",
+                            "max": "255"
+                        }
                     },
                     "count": "integer"
                 }
@@ -57,9 +69,21 @@ Company  resource representation.
             {
                 "status": "success",
                 "data": {
-                    "_id": "string",
-                    "name": "string",
-                    "code": "string"
+                    "_id": {
+                        "value": "1234567890",
+                        "type": "string",
+                        "max": "255"
+                    },
+                    "name": {
+                        "value": "PT THUNDERLABS INDONESIA",
+                        "type": "string",
+                        "max": "255"
+                    },
+                    "code": {
+                        "value": "TLID",
+                        "type": "string",
+                        "max": "255"
+                    }
                 }
             }
 
@@ -81,7 +105,7 @@ Company  resource representation.
     + Body
 
             {
-                "id": null
+                "_id": null
             }
 
 + Response 200 (application/json)
@@ -90,9 +114,21 @@ Company  resource representation.
             {
                 "status": "success",
                 "data": {
-                    "_id": "string",
-                    "name": "string",
-                    "code": "string"
+                    "_id": {
+                        "value": "1234567890",
+                        "type": "string",
+                        "max": "255"
+                    },
+                    "name": {
+                        "value": "PT THUNDERLABS INDONESIA",
+                        "type": "string",
+                        "max": "255"
+                    },
+                    "code": {
+                        "value": "TLID",
+                        "type": "string",
+                        "max": "255"
+                    }
                 }
             }
 

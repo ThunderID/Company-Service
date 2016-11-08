@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 use App\Entities\Company;
 
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
+
 /**
  * Company  resource representation.
  *
@@ -29,7 +32,7 @@ class CompanyController extends Controller
 	 * @Versions({"v1"})
 	 * @Transaction({
 	 *      @Request({"search":{"_id":"string","name":"string","code":"string"},"sort":{"newest":"asc|desc"}, "take":"integer", "skip":"integer"}),
-	 *      @Response(200, body={"status": "success", "data": {"data":{"_id":"string","name":"string","code":"string"},"count":"integer"} })
+	 *      @Response(200, body={"status": "success", "data": {"data":{"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}},"count":"integer"} })
 	 * })
 	 */
 	public function index()
@@ -100,9 +103,9 @@ class CompanyController extends Controller
 			$result					= $result->take($take);
 		}
 
-		$result 					= $result->get();
-		
-		return response()->json( JSend::success(['data' => $result->toArray(), 'count' => $count])->asArray())
+		$result 					= $this->getStructure($result->get()->toArray());
+
+		return response()->json( JSend::success([array_merge($result, ['count' => $count])])->asArray())
 				->setCallback($this->request->input('callback'));
 	}
 
@@ -113,7 +116,7 @@ class CompanyController extends Controller
 	 * @Versions({"v1"})
 	 * @Transaction({
 	 *      @Request({"_id":"string","name":"string","code":"string"}),
-	 *      @Response(200, body={"status": "success", "data": {"_id":"string","name":"string","code":"string"}}),
+	 *      @Response(200, body={"status": "success", "data": {"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}}}),
 	 *      @Response(200, body={"status": {"error": {"code must be unique."}}})
 	 * })
 	 */
@@ -135,7 +138,7 @@ class CompanyController extends Controller
 
 		if($result->save())
 		{
-			return response()->json( JSend::success($result->toArray())->asArray())
+			return response()->json( JSend::success($this->getStructure([$result->toArray()])['data'][0])->asArray())
 					->setCallback($this->request->input('callback'));
 		}
 		
@@ -148,8 +151,8 @@ class CompanyController extends Controller
 	 * @Delete("/")
 	 * @Versions({"v1"})
 	 * @Transaction({
-	 *      @Request({"id":null}),
-	 *      @Response(200, body={"status": "success", "data": {"_id":"string","name":"string","code":"string"}}),
+	 *      @Request({"_id":null}),
+	 *      @Response(200, body={"status": "success", "data": {"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}}}),
 	 *      @Response(200, body={"status": {"error": {"code must be unique."}}})
 	 * })
 	 */
@@ -161,7 +164,7 @@ class CompanyController extends Controller
 
 		if($company && $company->delete())
 		{
-			return response()->json( JSend::success($result->toArray())->asArray())
+			return response()->json( JSend::success($this->getStructure([$result->toArray()])['data'][0])->asArray())
 					->setCallback($this->request->input('callback'));
 		}
 
@@ -171,5 +174,39 @@ class CompanyController extends Controller
 		}
 
 		return response()->json( JSend::error($company->getError())->asArray());
+	}
+
+	/**
+	 * Fractal Modifying Returned Value
+	 *
+	 * getStructure method used to transforming response format and included UI inside (@UInside)
+	 */
+	public function getStructure($draft)
+	{
+		$fractal 					= new Manager();
+		$resource 					= new Collection($draft, function(array $company) {
+										return [
+												'id' 	=> [
+																'value' => $company['_id'],
+																'type'	=> 'string',
+																'max'	=> '255',
+															],
+												'name' 	=> [
+																'value' => $company['name'],
+																'type'	=> 'string',
+																'max'	=> '255',
+															],
+												'code' 	=> [
+																'value' => $company['code'],
+																'type'	=> 'string',
+																'max'	=> '255',
+															],
+											];
+										});
+
+		// Turn that into a structured array (handy for XML views or auto-YAML converting)
+		$array 						= $fractal->createData($resource)->toArray();
+
+		return $array;
 	}
 }
