@@ -45,6 +45,24 @@ Company  resource representation.
                             "value": "TLID",
                             "type": "string",
                             "max": "255"
+                        },
+                        "created_at": {
+                            "value": "2016-11-08 00:00:00",
+                            "type": "datetime",
+                            "zone": "Asia/Jakarta",
+                            "format": "Y-m-d H:i:s"
+                        },
+                        "updated_at": {
+                            "value": "2016-11-08 00:00:00",
+                            "type": "datetime",
+                            "zone": "Asia/Jakarta",
+                            "format": "Y-m-d H:i:s"
+                        },
+                        "deleted_at": {
+                            "value": "null",
+                            "type": "datetime",
+                            "zone": "Asia/Jakarta",
+                            "format": "Y-m-d H:i:s"
                         }
                     },
                     "count": "integer"
@@ -83,6 +101,24 @@ Company  resource representation.
                         "value": "TLID",
                         "type": "string",
                         "max": "255"
+                    },
+                    "created_at": {
+                        "value": "2016-11-08 00:00:00",
+                        "type": "datetime",
+                        "zone": "Asia/Jakarta",
+                        "format": "Y-m-d H:i:s"
+                    },
+                    "updated_at": {
+                        "value": "2016-11-08 00:00:00",
+                        "type": "datetime",
+                        "zone": "Asia/Jakarta",
+                        "format": "Y-m-d H:i:s"
+                    },
+                    "deleted_at": {
+                        "value": "null",
+                        "type": "datetime",
+                        "zone": "Asia/Jakarta",
+                        "format": "Y-m-d H:i:s"
                     }
                 }
             }
@@ -128,6 +164,24 @@ Company  resource representation.
                         "value": "TLID",
                         "type": "string",
                         "max": "255"
+                    },
+                    "created_at": {
+                        "value": "2016-11-08 00:00:00",
+                        "type": "datetime",
+                        "zone": "Asia/Jakarta",
+                        "format": "Y-m-d H:i:s"
+                    },
+                    "updated_at": {
+                        "value": "2016-11-08 00:00:00",
+                        "type": "datetime",
+                        "zone": "Asia/Jakarta",
+                        "format": "Y-m-d H:i:s"
+                    },
+                    "deleted_at": {
+                        "value": "null",
+                        "type": "datetime",
+                        "zone": "Asia/Jakarta",
+                        "format": "Y-m-d H:i:s"
                     }
                 }
             }

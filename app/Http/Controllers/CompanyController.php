@@ -32,7 +32,7 @@ class CompanyController extends Controller
 	 * @Versions({"v1"})
 	 * @Transaction({
 	 *      @Request({"search":{"_id":"string","name":"string","code":"string"},"sort":{"newest":"asc|desc"}, "take":"integer", "skip":"integer"}),
-	 *      @Response(200, body={"status": "success", "data": {"data":{"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}},"count":"integer"} })
+	 *      @Response(200, body={"status": "success", "data": {"data":{"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}, "created_at":{"value":"2016-11-08 00:00:00","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}, "updated_at":{"value":"2016-11-08 00:00:00","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}, "deleted_at":{"value":"null","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}},"count":"integer"} })
 	 * })
 	 */
 	public function index()
@@ -116,7 +116,7 @@ class CompanyController extends Controller
 	 * @Versions({"v1"})
 	 * @Transaction({
 	 *      @Request({"_id":"string","name":"string","code":"string"}),
-	 *      @Response(200, body={"status": "success", "data": {"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}}}),
+	 *      @Response(200, body={"status": "success", "data": {"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}, "created_at":{"value":"2016-11-08 00:00:00","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}, "updated_at":{"value":"2016-11-08 00:00:00","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}, "deleted_at":{"value":"null","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}}}),
 	 *      @Response(200, body={"status": {"error": {"code must be unique."}}})
 	 * })
 	 */
@@ -152,7 +152,7 @@ class CompanyController extends Controller
 	 * @Versions({"v1"})
 	 * @Transaction({
 	 *      @Request({"_id":null}),
-	 *      @Response(200, body={"status": "success", "data": {"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}}}),
+	 *      @Response(200, body={"status": "success", "data": {"_id":{"value":"1234567890", "type":"string", "max":"255"},"name":{"value":"PT THUNDERLABS INDONESIA", "type":"string", "max":"255"},"code":{"value":"TLID", "type":"string", "max":"255"}, "created_at":{"value":"2016-11-08 00:00:00","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}, "updated_at":{"value":"2016-11-08 00:00:00","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}, "deleted_at":{"value":"null","type":"datetime","zone":"Asia/Jakarta","format":"Y-m-d H:i:s"}}}),
 	 *      @Response(200, body={"status": {"error": {"code must be unique."}}})
 	 * })
 	 */
@@ -200,6 +200,24 @@ class CompanyController extends Controller
 																'value' => $company['code'],
 																'type'	=> 'string',
 																'max'	=> '255',
+															],
+												'created_at'	=> [
+																'value' => $company['created_at'],
+																'type'	=> 'datetime',
+																'zone'	=> env('APP_TIMEZONE', ''),
+																'format'=> 'Y-m-d H:i:s',
+															],
+												'updated_at' 	=> [
+																'value' => $company['updated_at'],
+																'type'	=> 'datetime',
+																'zone'	=> env('APP_TIMEZONE', ''),
+																'format'=> 'Y-m-d H:i:s',
+															],
+												'deleted_at' 	=> [
+																'value' => null,
+																'type'	=> 'datetime',
+																'zone'	=> env('APP_TIMEZONE', ''),
+																'format'=> 'Y-m-d H:i:s',
 															],
 											];
 										});
